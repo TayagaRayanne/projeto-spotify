@@ -1,0 +1,242 @@
+{
+	"name": "msbuild-project-tools",
+	"displayName": "MSBuild project tools",
+	"description": "Tools for working with MSBuild project files (such as auto-complete for package Ids / versions).",
+	"version": "0.3.15",
+	"settingsSchemaVersion": 1,
+	"publisher": "tintoy",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tintoy/msbuild-project-tools-vscode.git"
+	},
+	"icon": "images/icon.png",
+	"engines": {
+		"vscode": "^1.39.0"
+	},
+	"categories": [
+		"Programming Languages",
+		"Other"
+	],
+	"keywords": [
+		"msbuild",
+		"dotnet",
+		"nuget",
+		"packagereference",
+		"C#"
+	],
+	"activationEvents": [
+		"workspaceContains:NuGet.config",
+		"workspaceContains:global.json",
+		"workspaceContains:**/*.*proj",
+		"workspaceContains:**/*.props",
+		"workspaceContains:**/*.targets",
+		"onLanguage:msbuild",
+		"onLanguage:xml"
+	],
+	"main": "./out/src/extension/extension",
+	"contributes": {
+		"commands": [
+			{
+				"command": "msbuildProjectTools.toggleNuGetPreRelease",
+				"title": "Toggle pre-prelease",
+				"category": "NuGet"
+			}
+		],
+		"configuration": {
+			"title": "MSBuild project tools",
+			"type": "object",
+			"properties": {
+				"msbuildProjectTools.logging.level": {
+					"title": "Language service logging level.",
+					"type": "string",
+					"enum": [
+						"Error",
+						"Warning",
+						"Information",
+						"Debug",
+						"Verbose"
+					],
+					"default": "Information",
+					"description": "The logging level for the MSBuild language service."
+				},
+				"msbuildProjectTools.logging.file": {
+					"title": "Language service log file.",
+					"type": "string",
+					"default": null,
+					"description": "If specified, the language service will log to this file."
+				},
+				"msbuildProjectTools.logging.seq.level": {
+					"type": "string",
+					"enum": [
+						"Error",
+						"Warning",
+						"Information",
+						"Debug",
+						"Verbose"
+					],
+					"default": "Verbose",
+					"description": "The minimum log level for Seq."
+				},
+				"msbuildProjectTools.logging.seq.url": {
+					"type": "string",
+					"default": null,
+					"description": "The URL of the Seq server (Seq logging will be enabled if this is specified)."
+				},
+				"msbuildProjectTools.logging.seq.apiKey": {
+					"type": "string",
+					"default": null,
+					"description": "The API key (if any) to use when authenticating to Seq."
+				},
+				"msbuildProjectTools.logging.trace": {
+					"type": "boolean",
+					"default": false,
+					"description": "Trace all communication between VSCode and the MSBuild language service?"
+				},
+				"msbuildProjectTools.language.useClassicProvider": {
+					"title": "Use classic completion provider",
+					"type": "boolean",
+					"default": false,
+					"description": "Use the classic completion provider for PackageReferences, instead of the full language service?"
+				},
+				"msbuildProjectTools.language.disable.hover": {
+					"title": "Disable tooltips on hover?",
+					"type": "boolean",
+					"default": false,
+					"description": "Disable tooltips when hovering on XML in MSBuild project files?"
+				},
+				"msbuildProjectTools.language.completionsFromProject": {
+					"title": "Include completions the current project.",
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"ItemType",
+							"ItemMetadata",
+							"Property",
+							"Target",
+							"Task"
+						]
+					},
+					"default": [
+						"ItemType",
+						"ItemMetadata",
+						"Property"
+					],
+					"description": "Types of objects defined in the current project to include when offering completions."
+				},
+				"msbuildProjectTools.msbuild.extensionsPath": {
+					"type": "string",
+					"default": null,
+					"description": "Override the MSBuildExtensionsPath property."
+				},
+				"msbuildProjectTools.msbuild.extensionsPath32": {
+					"type": "string",
+					"default": null,
+					"description": "Override the MSBuildExtensionsPath32 property."
+				},
+				"msbuildProjectTools.experimentalFeatures": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"empty-completion-lists"
+						]
+					},
+					"default": [],
+					"description": "The names of experimental features (if any) to enable. If you're not sure what this is, you probably don't need it."
+				},
+				"msbuildProjectTools.nuget.newestVersionsFirst": {
+					"type": "boolean",
+					"default": true,
+					"description": "Sort package versions in descending order (i.e. newest versions first)? Set this to false to revert to the old behaviour (VSCode decides how to sort the completion list)."
+				},
+				"msbuildProjectTools.nuget.includePreRelease": {
+					"type": "boolean",
+					"default": false,
+					"description": "Include suggestions for pre-release packages and package versions."
+				},
+				"msbuildProjectTools.nuget.includeLocalSources": {
+					"type": "boolean",
+					"default": false,
+					"description": "Include suggestions for packages from local (file-based) package sources. You'll need to close and reopen your project file for this setting to take effect."
+				},
+				"msbuildProjectTools.nuget.disablePreFetch": {
+					"type": "boolean",
+					"default": false,
+					"description": "Don't automatically initialise the NuGet API client when opening a project (this is done to make the first PackageReference completion faster)?"
+				}
+			}
+		},
+		"snippets": [
+			{
+				"language": "msbuild",
+				"path": "./snippets/msbuild-project.json"
+			}
+		],
+		"grammars": [
+			{
+				"scopeName": "text.xml.msbuild.expression",
+				"injectTo": [
+					"text.xml.msbuild"
+				],
+				"path": "./syntaxes/msbuild.expression.json"
+			},
+			{
+				"language": "msbuild",
+				"scopeName": "text.xml.msbuild",
+				"path": "./syntaxes/msbuild.json"
+			}
+		],
+		"languages": [
+			{
+				"id": "msbuild",
+				"aliases": [
+					"MSBuild"
+				],
+				"extensions": [
+					"csproj",
+					"props",
+					"targets",
+					"msbuild"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "tsc -p ./",
+		"compile": "tsc -watch -p ./",
+		"test": "node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"@types/chai": "^4.2.4",
+		"@types/mocha": "^5.2.7",
+		"@types/mz": "0.0.31",
+		"@types/node": "^6.0.40",
+		"@types/object-path": "^0.9.29",
+		"@types/semver": "^5.3.34",
+		"@types/vscode": "^1.39.0",
+		"@types/which": "^1.0.28",
+		"@types/xmldom": "^0.1.29",
+		"chai": "^4.2.0",
+		"mocha": "^6.2.2",
+		"tslint": "^5.20.0",
+		"typescript": "^3.6.4"
+	},
+	"dependencies": {
+		"mz": "^2.6.0",
+		"object-path": "^0.11.4",
+		"rxjs": "^5.4.2",
+		"semver": "^5.4.1",
+		"vscode-languageclient": "^5.2.1",
+		"which": "^1.3.0",
+		"xmldom": "^0.1.27"
+	},
+	"__metadata": {
+		"id": "95c0933d-48c1-447b-b4d9-acee3e8da188",
+		"publisherId": "7dd27a84-4573-4a90-8ba4-4d2fe387a84f",
+		"publisherDisplayName": "tintoy",
+		"installedTimestamp": 1634403584252
+	}
+}

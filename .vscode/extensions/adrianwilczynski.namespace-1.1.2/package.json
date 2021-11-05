@@ -1,0 +1,52 @@
+{
+	"name": "namespace",
+	"displayName": "C# Namespace Autocompletion",
+	"description": "Full namespace autocompletion for C#",
+	"publisher": "adrianwilczynski",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AdrianWilczynski/NamespaceAutocompletion.git"
+	},
+	"icon": "img/logo.png",
+	"version": "1.1.2",
+	"engines": {
+		"vscode": "^1.32.0"
+	},
+	"categories": [
+		"Programming Languages",
+		"Snippets"
+	],
+	"keywords": [
+		"C#",
+		"CSharp",
+		"Namespace",
+		"Autocompletion",
+		"Autocomplete",
+		"IntelliSense",
+		".NET",
+		".NET Core"
+	],
+	"activationEvents": [
+		"onLanguage:csharp"
+	],
+	"main": "./out/extension.js",
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install"
+	},
+	"devDependencies": {
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.28",
+		"tslint": "^5.12.1",
+		"@types/node": "^10.12.21",
+		"@types/mocha": "^2.2.42"
+	},
+	"__metadata": {
+		"id": "120289fe-1924-43c1-b349-da42024cd01c",
+		"publisherId": "4c6d9dea-1a83-45db-ac56-4c2b8bdb3c09",
+		"publisherDisplayName": "Adrian Wilczyński",
+		"installedTimestamp": 1634403568935
+	}
+}

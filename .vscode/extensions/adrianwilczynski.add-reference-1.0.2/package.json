@@ -1,0 +1,73 @@
+{
+	"name": "add-reference",
+	"displayName": ".NET Core Add Reference",
+	"description": "Add or remove references of your .NET Core projects.",
+	"icon": "img/logo.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AdrianWilczynski/.NETCoreAddReference.git"
+	},
+	"publisher": "adrianwilczynski",
+	"version": "1.0.2",
+	"engines": {
+		"vscode": "^1.33.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"C#",
+		"CSharp",
+		".NET",
+		".NET Core",
+		"Reference",
+		"References"
+	],
+	"activationEvents": [
+		"onCommand:extension.addReference"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.addReference",
+				"title": "Add Reference"
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "extension.addReference",
+					"when": "resourceScheme == file && resourceExtname == .csproj",
+					"group": "7_modification"
+				}
+			],
+			"commandPalette": [
+				{
+					"command": "extension.addReference",
+					"when": "resourceScheme == file && resourceExtname == .csproj"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "npm run compile && node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.28",
+		"tslint": "^5.12.1",
+		"@types/node": "^10.12.21",
+		"@types/mocha": "^2.2.42"
+	},
+	"__metadata": {
+		"id": "f9ecc594-a555-4379-ab45-2ca969e04896",
+		"publisherId": "4c6d9dea-1a83-45db-ac56-4c2b8bdb3c09",
+		"publisherDisplayName": "Adrian Wilczyński",
+		"installedTimestamp": 1634403568503
+	}
+}

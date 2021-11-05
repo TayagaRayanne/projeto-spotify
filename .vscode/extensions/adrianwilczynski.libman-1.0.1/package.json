@@ -1,0 +1,136 @@
+{
+	"name": "libman",
+	"displayName": "LibMan Tools",
+	"description": "Basic LibMan support for VSCode",
+	"publisher": "adrianwilczynski",
+	"icon": "img/icon.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AdrianWilczynski/VSCodeLibMan.git"
+	},
+	"version": "1.0.1",
+	"engines": {
+		"vscode": "^1.40.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"LibMan",
+		"LibraryManager",
+		"Package",
+		"Library"
+	],
+	"activationEvents": [
+		"onCommand:libman.init",
+		"onCommand:libman.restore",
+		"onCommand:libman.install",
+		"onCommand:libman.uninstall",
+		"onCommand:libman.clean"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "libman.init",
+				"title": "LibMan: Init (via Terminal)"
+			},
+			{
+				"command": "libman.restore",
+				"title": "LibMan: Restore (via Terminal)"
+			},
+			{
+				"command": "libman.install",
+				"title": "LibMan: Install (via Terminal)"
+			},
+			{
+				"command": "libman.uninstall",
+				"title": "LibMan: Uninstall (via Terminal)"
+			},
+			{
+				"command": "libman.clean",
+				"title": "LibMan: Clean (via Terminal)"
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "libman.init",
+					"when": "explorerResourceIsFolder",
+					"group": "libman"
+				},
+				{
+					"command": "libman.restore",
+					"when": "resourceFilename == libman.json",
+					"group": "libman@0"
+				},
+				{
+					"command": "libman.install",
+					"when": "resourceFilename == libman.json",
+					"group": "libman@1"
+				},
+				{
+					"command": "libman.uninstall",
+					"when": "resourceFilename == libman.json",
+					"group": "libman@2"
+				},
+				{
+					"command": "libman.clean",
+					"when": "resourceFilename == libman.json",
+					"group": "libman@3"
+				}
+			],
+			"commandPalette": [
+				{
+					"command": "libman.restore",
+					"when": "false"
+				},
+				{
+					"command": "libman.install",
+					"when": "false"
+				},
+				{
+					"command": "libman.uninstall",
+					"when": "false"
+				},
+				{
+					"command": "libman.clean",
+					"when": "false"
+				}
+			]
+		},
+		"jsonValidation": [
+			{
+				"fileMatch": "libman.json",
+				"url": "http://json.schemastore.org/libman"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^10.12.21",
+		"@types/vscode": "^1.40.0",
+		"glob": "^7.1.4",
+		"mocha": "^6.1.4",
+		"tslint": "^5.12.1",
+		"typescript": "^3.7.2",
+		"vscode-test": "^1.0.2"
+	},
+	"dependencies": {
+		"axios": "^0.19.0"
+	},
+	"__metadata": {
+		"id": "20cc31be-46f0-4bbd-8633-c49bef933020",
+		"publisherId": "4c6d9dea-1a83-45db-ac56-4c2b8bdb3c09",
+		"publisherDisplayName": "Adrian Wilczyński",
+		"installedTimestamp": 1634403570979
+	}
+}

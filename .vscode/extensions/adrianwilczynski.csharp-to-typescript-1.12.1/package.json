@@ -1,0 +1,199 @@
+{
+	"name": "csharp-to-typescript",
+	"displayName": "C# to TypeScript",
+	"description": "Convert C# Models, ViewModels and DTOs into their TypeScript equivalents.",
+	"publisher": "adrianwilczynski",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AdrianWilczynski/CSharpToTypeScript"
+	},
+	"icon": "img/icon.png",
+	"version": "1.12.1",
+	"engines": {
+		"vscode": "^1.38.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"C#",
+		"CSharp",
+		".NET",
+		".NET Core",
+		"ASP.NET",
+		"ASP.NET Core",
+		"Angular",
+		"TypeScript",
+		"TS",
+		"Convert",
+		"Converter",
+		"Generate",
+		"Model",
+		"Keybindings",
+		"API"
+	],
+	"activationEvents": [
+		"onCommand:csharpToTypeScript.csharpToTypeScriptReplace",
+		"onCommand:csharpToTypeScript.csharpToTypeScriptToClipboard",
+		"onCommand:csharpToTypeScript.csharpToTypeScriptPasteAs",
+		"onCommand:csharpToTypeScript.csharpToTypeScriptToFile"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "csharpToTypeScript.csharpToTypeScriptReplace",
+				"title": "C# to TypeScript (Replace)",
+				"enablement": "resourceLangId == csharp || resourceLangId == typescript"
+			},
+			{
+				"command": "csharpToTypeScript.csharpToTypeScriptToClipboard",
+				"title": "C# to TypeScript (To Clipboard)",
+				"enablement": "resourceLangId == csharp || resourceLangId == typescript"
+			},
+			{
+				"command": "csharpToTypeScript.csharpToTypeScriptPasteAs",
+				"title": "C# to TypeScript (Paste As)",
+				"enablement": "resourceLangId == csharp || resourceLangId == typescript"
+			},
+			{
+				"command": "csharpToTypeScript.csharpToTypeScriptToFile",
+				"title": "C# to TypeScript (To File)",
+				"enablement": "resourceLangId == csharp"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "csharpToTypeScript.csharpToTypeScriptToClipboard",
+				"key": "alt+/"
+			},
+			{
+				"command": "csharpToTypeScript.csharpToTypeScriptPasteAs",
+				"key": "alt+."
+			}
+		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "csharpToTypeScript.csharpToTypeScriptReplace",
+					"when": "resourceLangId == csharp || resourceLangId == typescript"
+				},
+				{
+					"command": "csharpToTypeScript.csharpToTypeScriptToClipboard",
+					"when": "resourceLangId == csharp || resourceLangId == typescript"
+				},
+				{
+					"command": "csharpToTypeScript.csharpToTypeScriptPasteAs",
+					"when": "resourceLangId == csharp || resourceLangId == typescript"
+				},
+				{
+					"command": "csharpToTypeScript.csharpToTypeScriptToFile",
+					"when": "resourceLangId == csharp"
+				}
+			],
+			"editor/context": [
+				{
+					"command": "csharpToTypeScript.csharpToTypeScriptPasteAs",
+					"when": "resourceLangId == typescript",
+					"group": "9_cutcopypaste@4"
+				}
+			],
+			"explorer/context": [
+				{
+					"command": "csharpToTypeScript.csharpToTypeScriptToFile",
+					"when": "resourceLangId == csharp",
+					"group": "7_modification"
+				}
+			]
+		},
+		"configuration": [
+			{
+				"title": "C# to TypeScript",
+				"properties": {
+					"csharpToTypeScript.export": {
+						"type": "boolean",
+						"default": true,
+						"description": "Add \"export\" keyword to emitted type."
+					},
+					"csharpToTypeScript.convertDatesTo": {
+						"type": "string",
+						"default": "string",
+						"enum": [
+							"string",
+							"date",
+							"union"
+						],
+						"description": "Sets output type for dates"
+					},
+					"csharpToTypeScript.convertNullablesTo": {
+						"type": "string",
+						"default": "null",
+						"enum": [
+							"null",
+							"undefined"
+						],
+						"description": "Sets output type for nullables"
+					},
+					"csharpToTypeScript.toCamelCase": {
+						"type": "boolean",
+						"default": true,
+						"description": "Convert field names to camel case."
+					},
+					"csharpToTypeScript.removeInterfacePrefix": {
+						"type": "boolean",
+						"default": true,
+						"description": "Remove \"I\" prefixes."
+					},
+					"csharpToTypeScript.generateImports": {
+						"type": "boolean",
+						"default": false,
+						"description": "Generate import statements."
+					},
+					"csharpToTypeScript.quotationMark": {
+						"type": "string",
+						"default": "double",
+						"enum": [
+							"double",
+							"single"
+						],
+						"description": "Sets quotation marks."
+					},
+					"csharpToTypeScript.useKebabCase": {
+						"type": "boolean",
+						"default": false,
+						"description": "Use kebab case for file names."
+					},
+					"csharpToTypeScript.appendModelSuffix": {
+						"type": "boolean",
+						"default": false,
+						"description": "Append \".model\" suffix to file names."
+					}
+				}
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile-server && npm run compile",
+		"compile": "tsc -p ./",
+		"compile-server": "dotnet publish ./server/CSharpToTypeScript.Server/CSharpToTypeScript.Server.csproj -c Release",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^10.12.21",
+		"@types/vscode": "^1.38.0",
+		"glob": "^7.1.4",
+		"mocha": "^6.1.4",
+		"tslint": "^5.12.1",
+		"typescript": "^3.7.2",
+		"vscode-test": "^1.0.2"
+	},
+	"__metadata": {
+		"id": "c5ed5cdd-ed31-45b0-b275-878600095d31",
+		"publisherId": "4c6d9dea-1a83-45db-ac56-4c2b8bdb3c09",
+		"publisherDisplayName": "Adrian Wilczyński",
+		"installedTimestamp": 1634403572273
+	}
+}

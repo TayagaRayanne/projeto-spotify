@@ -1,0 +1,219 @@
+{
+	"name": "asp-net-core-switcher",
+	"displayName": "ASP.NET Core Switcher",
+	"description": "Quickly switch between views, controllers, pages, page models and Blazor components in ASP.NET Core using keybindings, context menu or command palette.",
+	"publisher": "adrianwilczynski",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AdrianWilczynski/AspNetCoreSwitcher.git"
+	},
+	"icon": "img/logo.png",
+	"version": "2.0.2",
+	"engines": {
+		"vscode": "^1.32.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"ASP.NET Core",
+		".NET Core",
+		"Razor Pages",
+		"MVC",
+		"Blazor",
+		"C#",
+		"CSharp",
+		"Razor",
+		"Keybindings",
+		"Keybinding",
+		"Switch",
+		"Switcher",
+		"Navigate",
+		"Navigation",
+		"Jump",
+		"Open"
+	],
+	"activationEvents": [
+		"onLanguage:csharp",
+		"onLanguage:razor",
+		"onLanguage:aspnetcorerazor"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.goToView",
+				"title": "Go to View",
+				"enablement": "resourceFilename=~ /.*(?<!\\.cshtml|\\.razor)\\.cs$/ && isController"
+			},
+			{
+				"command": "extension.goToController",
+				"title": "Go to Controller",
+				"enablement": "resourceFilename=~ /.*\\.cshtml$/ && isView"
+			},
+			{
+				"command": "extension.addView",
+				"title": "Add View",
+				"enablement": "resourceFilename=~ /.*(?<!\\.cshtml|\\.razor)\\.cs$/ && isController"
+			},
+			{
+				"command": "extension.goToPage",
+				"title": "Go to Page",
+				"enablement": "resourceFilename=~ /.*\\.cshtml\\.cs$/ && isPageModel"
+			},
+			{
+				"command": "extension.goToPageModel",
+				"title": "Go to PageModel",
+				"enablement": "resourceFilename=~ /.*\\.cshtml$/ && isPage"
+			},
+			{
+				"command": "extension.goToBlazorComponent",
+				"title": "Go to Component",
+				"enablement": "resourceFilename=~ /.*\\.razor\\.cs$/ && resourceScheme == file"
+			},
+			{
+				"command": "extension.goToCodeBehind",
+				"title": "Go to CodeBehind",
+				"enablement": "resourceFilename=~ /.*\\.razor$/ && resourceScheme == file"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "extension.goToView",
+				"key": "alt+i",
+				"when": "resourceFilename=~ /.*(?<!\\.cshtml|\\.razor)\\.cs$/ && isController"
+			},
+			{
+				"command": "extension.goToController",
+				"key": "alt+i",
+				"when": "resourceFilename=~ /.*\\.cshtml$/ && isView"
+			},
+			{
+				"command": "extension.goToView",
+				"key": "alt+o",
+				"when": "resourceFilename=~ /.*(?<!\\.cshtml|\\.razor)\\.cs$/ && isController"
+			},
+			{
+				"command": "extension.goToController",
+				"key": "alt+o",
+				"when": "resourceFilename=~ /.*\\.cshtml$/ && isView"
+			},
+			{
+				"command": "extension.addView",
+				"key": "alt+p",
+				"when": "resourceFilename=~ /.*(?<!\\.cshtml|\\.razor)\\.cs$/ && isController"
+			},
+			{
+				"command": "extension.goToPage",
+				"key": "alt+o",
+				"when": "resourceFilename=~ /.*\\.cshtml\\.cs$/ && isPageModel"
+			},
+			{
+				"command": "extension.goToPageModel",
+				"key": "alt+o",
+				"when": "resourceFilename=~ /.*\\.cshtml$/ && isPage"
+			},
+			{
+				"command": "extension.goToBlazorComponent",
+				"key": "alt+o",
+				"when": "resourceFilename=~ /.*\\.razor\\.cs$/ && resourceScheme == file"
+			},
+			{
+				"command": "extension.goToCodeBehind",
+				"key": "alt+o",
+				"when": "resourceFilename=~ /.*\\.razor$/ && resourceScheme == file"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"command": "extension.goToView",
+					"group": "navigation",
+					"when": "resourceFilename=~ /.*(?<!\\.cshtml|\\.razor)\\.cs$/ && isController"
+				},
+				{
+					"command": "extension.goToController",
+					"group": "navigation",
+					"when": "resourceFilename=~ /.*\\.cshtml$/ && isView"
+				},
+				{
+					"command": "extension.addView",
+					"group": "1_modification",
+					"when": "resourceFilename=~ /.*(?<!\\.cshtml|\\.razor)\\.cs$/ && isController"
+				},
+				{
+					"command": "extension.goToPage",
+					"group": "navigation",
+					"when": "resourceFilename=~ /.*\\.cshtml\\.cs$/ && isPageModel"
+				},
+				{
+					"command": "extension.goToPageModel",
+					"group": "navigation",
+					"when": "resourceFilename=~ /.*\\.cshtml$/ && isPage"
+				},
+				{
+					"command": "extension.goToBlazorComponent",
+					"group": "navigation",
+					"when": "resourceFilename=~ /.*\\.razor\\.cs$/ && resourceScheme == file"
+				},
+				{
+					"command": "extension.goToCodeBehind",
+					"group": "navigation",
+					"when": "resourceFilename=~ /.*\\.razor$/ && resourceScheme == file"
+				}
+			],
+			"commandPalette": [
+				{
+					"command": "extension.goToView",
+					"when": "resourceFilename=~ /.*(?<!\\.cshtml|\\.razor)\\.cs$/ && isController"
+				},
+				{
+					"command": "extension.goToController",
+					"when": "resourceFilename=~ /.*\\.cshtml$/ && isView"
+				},
+				{
+					"command": "extension.addView",
+					"when": "resourceFilename=~ /.*(?<!\\.cshtml|\\.razor)\\.cs$/ && isController"
+				},
+				{
+					"command": "extension.goToPage",
+					"when": "resourceFilename=~ /.*\\.cshtml\\.cs$/ && isPageModel"
+				},
+				{
+					"command": "extension.goToPageModel",
+					"when": "resourceFilename=~ /.*\\.cshtml$/ && isPage"
+				},
+				{
+					"command": "extension.goToBlazorComponent",
+					"when": "resourceFilename=~ /.*\\.razor\\.cs$/ && resourceScheme == file"
+				},
+				{
+					"command": "extension.goToCodeBehind",
+					"when": "resourceFilename=~ /.*\\.razor$/ && resourceScheme == file"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "npm run compile && node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"@types/chai": "^4.1.7",
+		"@types/mocha": "^2.2.42",
+		"@types/node": "^10.12.21",
+		"chai": "^4.2.0",
+		"tslint": "^5.12.1",
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.28"
+	},
+	"__metadata": {
+		"id": "6bb12ca5-c317-4276-92d8-6905f9815982",
+		"publisherId": "4c6d9dea-1a83-45db-ac56-4c2b8bdb3c09",
+		"publisherDisplayName": "Adrian Wilczyński",
+		"installedTimestamp": 1634403569750
+	}
+}

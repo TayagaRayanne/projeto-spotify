@@ -1,0 +1,9 @@
+{
+	"SignalR client script from CDN": {
+		"prefix": "script:signalr-cdn",
+		"body": [
+			"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/${1:5.0.1}/signalr.min.js\"></script>"
+		],
+		"description": "SignalR client script from CDN"
+	}
+}

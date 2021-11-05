@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MSBuildProjectTools.LanguageServer.TaskReflection</name>
+    </assembly>
+    <members>
+        <member name="T:MSBuildProjectTools.LanguageServer.TaskReflection.DirectoryAssemblyLoadContext">
+            <summary>
+                An <see cref="T:System.Runtime.Loader.AssemblyLoadContext"/> that loads assemblies from the specified directory.
+            </summary>
+        </member>
+        <member name="M:MSBuildProjectTools.LanguageServer.TaskReflection.DirectoryAssemblyLoadContext.#ctor(System.String,System.String)">
+            <summary>
+                Create a new <see cref="T:MSBuildProjectTools.LanguageServer.TaskReflection.DirectoryAssemblyLoadContext"/>.
+            </summary>
+            <param name="baseDirectory">
+                The base directory from which assemblies are loaded.
+            </param>
+            <param name="fallbackDirectory">
+                An optional directory from which assemblies are loaded if they are not found in the base directory.
+            </param>
+        </member>
+        <member name="P:MSBuildProjectTools.LanguageServer.TaskReflection.DirectoryAssemblyLoadContext.BaseDirectory">
+            <summary>
+                The base directory from which assemblies are loaded.
+            </summary>
+        </member>
+        <member name="P:MSBuildProjectTools.LanguageServer.TaskReflection.DirectoryAssemblyLoadContext.FallbackDirectory">
+            <summary>
+                The directory from which assemblies are loaded if they are not found in the base directory.
+            </summary>
+        </member>
+        <member name="M:MSBuildProjectTools.LanguageServer.TaskReflection.DirectoryAssemblyLoadContext.Load(System.Reflection.AssemblyName)">
+            <summary>
+                Load an assembly.
+            </summary>
+            <param name="assemblyName">
+                The assembly name.
+            </param>
+            <returns>
+                The assembly, or <c>null</c> if the assembly could not be loaded.
+            </returns>
+        </member>
+        <member name="M:MSBuildProjectTools.LanguageServer.TaskReflection.DirectoryAssemblyLoadContext.LoadFromDirectory(System.Reflection.AssemblyName,System.IO.DirectoryInfo)">
+            <summary>
+                Load the specified assembly from a file in a directory.
+            </summary>
+            <param name="assemblyName">
+                The assembly name.
+            </param>
+            <param name="directory">
+                The directory to load the assembly from.
+            </param>
+            <returns>
+                The assembly, or <c>null</c> if no matching assembly file was found <paramref name="directory"/>.
+            </returns>
+        </member>
+        <member name="T:MSBuildProjectTools.LanguageServer.TaskReflection.Program">
+            <summary>
+                A tool to scan an MSBuild task assembly and output information about the tasks it contains.
+            </summary>
+        </member>
+        <member name="F:MSBuildProjectTools.LanguageServer.TaskReflection.Program.SupportedTaskParameterTypes">
+            <summary>
+                The fully-qualified names of supported task parameter types.
+            </summary>
+        </member>
+        <member name="M:MSBuildProjectTools.LanguageServer.TaskReflection.Program.Main(System.String[])">
+            <summary>
+                The main program entry-point.
+            </summary>
+            <param name="args">
+                Command-line arguments.
+            </param>
+            <returns>
+                0 if successful; otherwise, 1.
+            </returns>
+        </member>
+        <member name="M:MSBuildProjectTools.LanguageServer.TaskReflection.Program.WriteErrorJson(System.String,System.Object[])">
+            <summary>
+                Write an error message in JSON format.
+            </summary>
+            <param name="messageOrFormat">
+                The error message or message-format specifier.
+            </param>
+            <param name="formatArgs">
+                Optional message-format arguments.
+            </param>
+        </member>
+        <member name="T:MSBuildProjectTools.LanguageServer.Utilities.DotNetRuntimeInfo">
+            <summary>
+                Information about the .NET Core runtime.
+            </summary>
+        </member>
+        <member name="P:MSBuildProjectTools.LanguageServer.Utilities.DotNetRuntimeInfo.RuntimeVersion">
+            <summary>
+                The .NET runtime (host) version.
+            </summary>
+        </member>
+        <member name="P:MSBuildProjectTools.LanguageServer.Utilities.DotNetRuntimeInfo.SdkVersion">
+            <summary>
+                The .NET SDK version.
+            </summary>
+        </member>
+        <member name="P:MSBuildProjectTools.LanguageServer.Utilities.DotNetRuntimeInfo.BaseDirectory">
+            <summary>
+                The .NET Core base directory.
+            </summary>
+        </member>
+        <member name="P:MSBuildProjectTools.LanguageServer.Utilities.DotNetRuntimeInfo.RID">
+            <summary>
+                The current runtime identifier (RID).
+            </summary>
+        </member>
+        <member name="M:MSBuildProjectTools.LanguageServer.Utilities.DotNetRuntimeInfo.GetCurrent(System.String,Serilog.ILogger)">
+            <summary>
+                Get information about the current .NET Core runtime.
+            </summary>
+            <param name="baseDirectory">
+                An optional base directory where dotnet.exe should be run (this may affect the version it reports due to global.json).
+            </param>
+            <param name="logger">
+                An optional <see cref="T:Serilog.ILogger"/> to use for diagnostic purposes (if not specified, the static <see cref="P:Serilog.Log.Logger"/> will be used).
+            </param>
+            <returns>
+                A <see cref="T:MSBuildProjectTools.LanguageServer.Utilities.DotNetRuntimeInfo"/> containing the runtime information.
+            </returns>
+        </member>
+        <member name="M:MSBuildProjectTools.LanguageServer.Utilities.DotNetRuntimeInfo.ParseDotNetInfoOutput(System.IO.TextReader)">
+            <summary>
+                Parse the output of "dotnet --info" into a <see cref="T:MSBuildProjectTools.LanguageServer.Utilities.DotNetRuntimeInfo"/>.
+            </summary>
+            <param name="dotnetInfoOutput">
+                A <see cref="T:System.IO.TextReader"/> containing the output of "dotnet --info".
+            </param>
+            <returns>
+                The <see cref="T:MSBuildProjectTools.LanguageServer.Utilities.DotNetRuntimeInfo"/>.
+            </returns>
+        </member>
+        <member name="T:MSBuildProjectTools.LanguageServer.Utilities.DotnetInfoSection">
+            <summary>
+                Well-known sections returned by "dotnet --info".
+            </summary>
+            <remarks>
+                Since the section titles returned by "dotnet --info" are now localised, we have to resort to this (more-fragile) method of parsing the output.
+            </remarks>
+        </member>
+        <member name="F:MSBuildProjectTools.LanguageServer.Utilities.DotnetInfoSection.Start">
+            <summary>
+                Start of output.
+            </summary>
+        </member>
+        <member name="F:MSBuildProjectTools.LanguageServer.Utilities.DotnetInfoSection.ProductInformation">
+            <summary>
+                The product information section (e.g. ".NET Core SDK (reflecting any global.json)").
+            </summary>
+        </member>
+        <member name="F:MSBuildProjectTools.LanguageServer.Utilities.DotnetInfoSection.RuntimeEnvironment">
+            <summary>
+                The runtime environment section (e.g. "Runtime Environment").
+            </summary>
+        </member>
+        <member name="F:MSBuildProjectTools.LanguageServer.Utilities.DotnetInfoSection.Host">
+            <summary>
+                The host section (e.g. "Host (useful for support)").
+            </summary>
+        </member>
+        <member name="F:MSBuildProjectTools.LanguageServer.Utilities.DotnetInfoSection.SdkList">
+            <summary>
+                The SDK list section (e.g. ".NET Core SDKs installed").
+            </summary>
+        </member>
+        <member name="F:MSBuildProjectTools.LanguageServer.Utilities.DotnetInfoSection.RuntimeList">
+            <summary>
+                The runtime list section (e.g. ".NET Core runtimes installed").
+            </summary>
+        </member>
+    </members>
+</doc>

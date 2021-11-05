@@ -1,0 +1,68 @@
+{
+	"IDesignTimeDbContextFactory": {
+		"prefix": "ef-dbcontext-factory",
+		"body": [
+			"using Microsoft.EntityFrameworkCore;",
+			"using Microsoft.EntityFrameworkCore.Design;",
+			"using Microsoft.EntityFrameworkCore.Infrastructure;",
+			"",
+			"namespace ${1:${TM_DIRECTORY/^.*[\\\\\\/]([^\\\\\\/]+)[\\\\\\/][^\\\\\\/]+$/$1/}}.Models",
+			"{",
+			"    public class ${2:${TM_FILENAME_BASE}} : IDesignTimeDbContextFactory<${3:${TM_FILENAME_BASE/(Factory)$//g}}>",
+			"    {",
+			"        public ${3} CreateDbContext(string[] args)",
+			"        {",
+			"            return new ${3}();",
+			"        }",
+			"    }",
+			"}"
+		],
+		"description": "Create a IDesignTimeDbContextFactory class under Models/ folder"
+	},
+	"IDesignTimeDbContextFactory-Trusted": {
+		"prefix": "ef-dbcontext-factory-trusted",
+		"body": [
+			"using Microsoft.EntityFrameworkCore;",
+			"using Microsoft.EntityFrameworkCore.Design;",
+			"using Microsoft.EntityFrameworkCore.Infrastructure;",
+			"",
+			"namespace ${1:${TM_DIRECTORY/^.*[\\\\\\/]([^\\\\\\/]+)[\\\\\\/][^\\\\\\/]+$/$1/}}.Models",
+			"{",
+			"    public class ${2:${TM_FILENAME_BASE}} : IDesignTimeDbContextFactory<${3:${TM_FILENAME_BASE/(Factory)$//g}}>",
+			"    {",
+			"        public ${3} CreateDbContext(string[] args)",
+			"        {",
+			"            var optionsBuilder = new DbContextOptionsBuilder<${3}>();",
+			"            optionsBuilder.UseSqlServer(\"Server=${3:(localdb)\\\\\\\\MSSQLLocalDB};Initial Catalog=${4:DBName};Integrated Security=True\");",
+			"",
+			"            return new ${3}(optionsBuilder.Options);",
+			"        }",
+			"    }",
+			"}"
+		],
+		"description": "Create a IDesignTimeDbContextFactory class under Models/ folder"
+	},
+	"IDesignTimeDbContextFactory-IP": {
+		"prefix": "ef-dbcontext-factory-ip",
+		"body": [
+			"using Microsoft.EntityFrameworkCore;",
+			"using Microsoft.EntityFrameworkCore.Design;",
+			"using Microsoft.EntityFrameworkCore.Infrastructure;",
+			"",
+			"namespace ${1:${TM_DIRECTORY/^.*[\\\\\\/]([^\\\\\\/]+)[\\\\\\/][^\\\\\\/]+$/$1/}}.Models",
+			"{",
+			"    public class ${2:${TM_FILENAME_BASE}} : IDesignTimeDbContextFactory<${3:${TM_FILENAME_BASE/(Factory)$//g}}>",
+			"    {",
+			"        public ${3} CreateDbContext(string[] args)",
+			"        {",
+			"            var optionsBuilder = new DbContextOptionsBuilder<${3}>();",
+			"            optionsBuilder.UseSqlServer(\"Server=${3:localhost};Initial Catalog=${4:DBName};User Id=${5:LoginName};Password=${6:Password}\");",
+			"",
+			"            return new ${3}(optionsBuilder.Options);",
+			"        }",
+			"    }",
+			"}"
+		],
+		"description": "Create a IDesignTimeDbContextFactory class under Models/ folder"
+	}
+}
